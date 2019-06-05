@@ -1,0 +1,165 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 600,
+  "height": 300,
+  "padding": 50,
+  "autosize": "fit",
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {
+          "category": "Trophic State Index",
+          "amount": 2.75
+        },
+        {
+          "category": "Total Phosphorus Index",
+          "amount": 3
+        },
+        {
+          "category": "Total Nitrogen Index",
+          "amount": 2
+        },
+        {
+          "category": "Chlorophyll-a Index",
+          "amount": 2
+        },
+        {
+          "category": "Transparency Index",
+          "amount": 4
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "tooltip",
+      "value": {},
+      "on": [
+        {
+          "events": "rect:mouseover",
+          "update": "datum"
+        },
+        {
+          "events": "rect:mouseout",
+          "update": "{}"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "band",
+      "domain": {
+        "data": "table",
+        "field": "category"
+      },
+      "range": "height",
+      "padding": 0.05,
+      "round": true
+    },
+    {
+      "name": "xscale",
+      "domain": [0,6],
+      "nice": true,
+      "range": "width"
+    }
+  ],
+  "axes": [
+    {
+      "orient": "bottom",
+      "scale": "xscale",
+      "labels": false
+    },
+    {
+      "orient": "left",
+      "scale": "yscale"
+    }
+  ],
+          "marks": [
+            {
+              "type": "rect",
+              "from": {"data":"table"},
+              "encode": {
+                "enter": {
+                  "x": {"scale": "xscale", "field": "amount"},
+                  "x2": {"scale": "xscale", "value": 0},
+                  "y": {"scale": "yscale", "field": "category"},
+                  "height": {"scale": "yscale", "band": 1}
+                },
+                "update": {
+                  "fill": {"value": "green"}
+                },
+                "hover": {
+                  "fill": {"value": "red"}
+                }
+              }
+            },
+            {
+              "type": "text",
+              "encode": {
+                "enter": {
+                  "align": {"value": "center"},
+                  "baseline": {"value": "bottom"},
+                  "fill": {"value": "#333"}
+                },
+                "update": {
+                  "y": {"scale": "yscale", "signal": "tooltip.category", "band": 0.5},
+                  "x": {"scale": "xscale", "signal": "tooltip.amount", "offset": 20},
+                  "text": {"signal": "tooltip.amount"},
+                  "fillOpacity": [
+                    {"test": "isNaN(tooltip.amount)", "value": 0},
+                    {"value": 1}
+                  ]
+                }
+              }
+            },
+            {
+              "type": "text",
+              "encode": {
+                "enter": {
+                  "fill": {
+                    "value": "#000"
+                  },
+                  "text": {
+                    "value": "Oligotrophic"
+                  },
+                  "y": {"value": 300},
+                  "x": {"value": 1}
+                }
+              }
+            },
+            {
+              "type": "text",
+              "encode": {
+                "enter": {
+                  "fill": {
+                    "value": "#000"
+                  },
+                  "text": {
+                    "value": "Mesotrophic"
+                  },
+                  "y": {"value": 300},
+                  "x": {"value": 210}
+                }
+              }
+            },
+            {
+              "type": "text",
+              "encode": {
+                "enter": {
+                  "fill": {
+                    "value": "#000"
+                  },
+                  "text": {
+                    "value": "Eutrophic"
+                  },
+                  "y": {"value": 300},
+                  "x": {"value": 400}
+                }
+              }
+            }
+          ]
+}
+
