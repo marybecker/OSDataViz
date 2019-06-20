@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+    <title>Example of interactive bar chart for lakes</title>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@4"></script>
+</head>
+
+<body>
+<h1>Patchaug Pond Interactive Example</h1>
+<h3>in progress beta version with hover for web report</h3>
+<div id="vis"></div>
+
+<script>
+    const spec = "lake.bar.json";
+    vegaEmbed('#vis', spec)
+    // result.view provides access to the Vega View API
+        .then(result => console.log(result))
+        .catch(console.warn);
+</script>
+</body>

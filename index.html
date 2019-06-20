@@ -1,21 +1,172 @@
 <!DOCTYPE html>
-<head>
-    <title>Example of interactive bar chart for lakes</title>
-    <meta charset="utf-8">
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@4"></script>
-</head>
+<html>
+  <head>
+    <title>Lake Profiles</title>
+    <meta charset="utf-8" />
 
-<body>
-<h1>Patchaug Pond Interactive Example</h1>
-<h3>in progress beta version with hover for web report</h3>
-<div id="vis"></div>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.4.0/build/vega.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.3.0/build/vega-lite.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@4.2.0/build/vega-embed.js"></script>
 
-<script>
-    const spec = "lake.bar.json";
-    vegaEmbed('#vis', spec)
-    // result.view provides access to the Vega View API
-        .then(result => console.log(result))
-        .catch(console.warn);
-</script>
-</body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,900i" rel="stylesheet">
+
+    <style media="screen">
+      /* Add space between Vega-Embed links  */
+      .vega-actions a {
+        margin-right: 5px;
+      }
+
+      body {
+          margin: 0;
+          padding: 0;
+          background: #c7c9c8;
+          font-family: 'Lato', sans-serif;
+          font-weight: 300;
+          color: #3d3d3d;
+          font-size: 1.1em;
+
+      }
+
+      section {
+          width: 80%;
+          margin: 10px auto;
+      }
+
+      h1 {
+          font-family: 'Lato', sans-serif;
+          font-weight: 900i;
+          font-size: 2.8em;
+          font-style: italic;
+          /* The em unit. 3x the current size */
+          letter-spacing: .01em;
+          margin: 0 0 15px 0;
+          /* text-transform: uppercase; */
+      }
+
+      h2 {
+          font-family: 'Lato', sans-serif;
+          font-weight: 300;
+          color: #63666a;
+          font-size: 1.5em;
+          letter-spacing: .06em;
+          font-style: italic;
+          margin: 0 0 25px 0;
+      }
+
+      p {
+          font-size: 1.15em;
+          line-height: 1.8em;
+          margin: 0 0 25px 0;
+      }
+
+      .first-column {
+          float: left;
+          width: 48%;
+          padding-right: 20px;
+      }
+
+      .column {
+          float: left;
+          width: 48%;
+      }
+
+      /* Clear floats after the columns */
+
+      .row:after {
+          content: "";
+          display: table;
+          clear: both;
+      }
+
+      .jpg-title {
+          float: left;
+          display: inline-block;
+          width: 100px;
+          margin: -8px 10px -8px 0;
+      }
+      .max-image-width {
+          width: 80%;
+      }
+
+      #vis {
+     min-width: 500px;
+     height: 450px;
+     grid-column: 2;
+     justify-content: center;
+     pointer-events: none;
+   }
+
+
+      /* add custom style class here */
+
+      .linkbox {
+          margin: 3px 0 20px 0;
+          display: block;
+          font-weight: 300;
+      }
+      /* When browser is 800px wide or less */
+
+      @media screen and (max-width: 800px) {
+
+          .first-column,
+          .column {
+              width: 100%;
+          }
+      }
+
+    </style>
+  </head>
+  <body>
+    <iframe src="lakemap.html" width="100%" height="350px"></iframe>
+
+    <section>
+      <a href='lakemapfull.html' class="linkbox">Full-screen map</a>
+      <h1>Uncas Pond, Lyme Connecticut</h1>
+      <ul>
+        <li> Max Depth:  ?</li>
+        <li> Elevation: ? </li>
+        <li> Other Info: ? </li>
+      </ul>
+
+      <div class="row">
+          <div class="first-column">
+            <h2>Sample Description:</h2>
+            The CT DEEP Monitoring and Assessment Program took water samples at the boat ramp and what locals refer to as the “swim area” on 6/14/2019.
+            The boat ramp had a mix of pollen as well as a pretty good cyanbacteria bloom.
+            The samples were almost exclusively Anabaena affinis, a cyanobacteria. This genus
+            is known to produce the toxins Anatoxin a, Microcystin, and Cylindrospermopsin.
+          </div>
+      <div class="column">
+        <img class="max-image-width" src="images/Uncas Lake_Boat Launch_06-14-19 (6).JPG"
+             title="Uncas Lake Boat Launch">
+        <div class="linkbox">Uncas Lake Boat Launch 6/14/19</div>
+      </div>
+      </div>
+      <h2>Profile Data and Cell Counts:  Sample Date 6/14/19</h2>
+      <div class="max-image-width">
+      <div id="visTEMP"></div>
+      <div id="visDO"></div>
+      <div id="visCell"></div>
+    </div>
+
+
+    <script>
+      // Assign the specification to a local variable vlSpec.
+      const spec = "ysi_DO.json";
+      vegaEmbed('#visDO', spec)
+
+      const spectemp = "ysi_Temp.json";
+      vegaEmbed('#visTEMP', spectemp)
+
+      const speccell = "cellcnt.json";
+      vegaEmbed('#visCell', speccell)
+      // result.view provides access to the Vega View API
+          .then(result => console.log(result))
+          .catch(console.warn);
+    </script>
+  </section>
+  <img src="images/Uncas Lake_Boat Launch_06-14-19 (2).JPG" width="100%" height="350px">
+  <div class="linkbox">Uncas Lake Boat Launch 6/14/19</div>
+  </body>
+</html>

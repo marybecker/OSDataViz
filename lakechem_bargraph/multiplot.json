@@ -1,0 +1,42 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+
+  "data": {"url":"data/ysi_burrpondtest.csv"},
+  "hconcat":[
+    {"mark": "line",
+      "width":300,
+      "height": 300,
+    "encoding": {
+      "y": {"field": "Depth",
+            "type": "quantitative",
+            "sort": "descending",
+            "axis": {"title": "Depth (m)"}
+          },
+      "x": {"field": "Temp_C",
+            "type": "quantitative",
+            "axis": {"title": "Temperature (degree C)","titleFontSize": 15},
+            "scale": {"zero":"true"}
+      }
+    }
+  },
+  {"mark": "line",
+    "width":300,
+    "height": 300,
+  "encoding": {
+    "y": {"field": "Depth",
+          "type": "quantitative",
+          "sort": "descending",
+          "axis": {"title": "Depth (m)"}},
+    "x": {"field": "DO",
+          "type": "quantitative",
+          "axis": {"title": "DO (mg/L)"},
+          "scale": {"zero":"true"}
+    }
+  }
+}
+],
+"config":{
+  "background": "white",
+  "axis":{"titleFontSize": 15}
+}
+}

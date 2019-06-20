@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "width":200,
+  "autosize": {
+    "type": "fit",
+    "resize": "true"
+  },
+  "data": {"url":"data/cellcnt.csv"},
+  "spacing": 10,
+  "mark": "bar",
+  "encoding": {
+    "column": {
+      "field": "s_area", "type": "nominal","title":"Sample Area"
+    },
+    "y": {
+      "aggregate": "sum", "field": "cnt", "type": "quantitative",
+      "axis": {"title": "Cell Count", "grid": false}
+    },
+    "x": {
+      "field": "type", "type": "nominal",
+      "axis": {"title": ""}
+    },
+    "color": {
+      "field": "type", "type": "nominal","title":"cell count type",
+      "scale": {"range": ["#e5f5f9", "#2ca25f"]}
+    }
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"domainWidth": 0.5,"titleFontSize": 15,"labelFontSize":15},
+    "legend": {"titleFontSize": 15,"fontSize":15}
+  }
+}
